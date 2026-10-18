@@ -6,10 +6,13 @@ Template for a new application deployed by the shared CI/CD
 ## Flow
 
 ```
-feature branch --PR--> dev --PR--> main
-   tests, build,      build, push,     same image promoted,
-   Trivy              deploy to dev    deploy to prod
+feature branch --PR--> main --tag v1.2.3--> release
+   tests, build,       build, push,          same image promoted,
+   Trivy               deploy to dev         deploy to prod
 ```
+
+Release: `git tag v1.2.3 && git push origin v1.2.3` (or a GitHub Release) on a commit of `main`
+that is already running on dev.
 
 - **dev:** `https://<app>.dev.lucasnextgen.com` (basic auth)
 - **prod:** `https://<app>.lucasnextgen.com`
@@ -19,7 +22,7 @@ feature branch --PR--> dev --PR--> main
 1. Create the repository from this template (**Use this template**).
 2. The maintainer runs the bootstrap script for the new repo (Harbor project, secrets, branch rules, GitOps entry).
 3. Replace the example Go code and the `Dockerfile` stages with your stack, keeping the contract below.
-4. Open a PR to `dev`.
+4. Open a PR to `main`.
 
 ## Contract
 
